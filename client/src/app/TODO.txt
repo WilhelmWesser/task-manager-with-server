@@ -1,2 +1,1 @@
-1. All reusable inputs and button get in a separate jsx component.
-2. Add intersting loaders instead of Loading title.
+1. Add interesting loaders instead of Loading title.

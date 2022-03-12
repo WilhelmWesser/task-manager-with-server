@@ -3,6 +3,12 @@ import localStorageService from "./localStorage.service";
 const userEndPoint = "user/";
 
 const userService = {
+    getCurrentUser: async () => {
+        const { data } = await httpService.get(
+            userEndPoint + localStorageService.getUserId()
+        );
+        return data;
+    },
     create: async (content) => {
         const { data } = await httpService.put(
             userEndPoint + content._id,
@@ -14,12 +20,6 @@ const userService = {
         const { data } = await httpService.put(
             userEndPoint + localStorageService.getUserId(),
             updateData
-        );
-        return data;
-    },
-    getCurrentUser: async () => {
-        const { data } = await httpService.get(
-            userEndPoint + localStorageService.getUserId()
         );
         return data;
     }

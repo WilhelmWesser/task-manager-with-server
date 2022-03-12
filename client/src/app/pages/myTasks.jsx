@@ -75,7 +75,6 @@ const MyTasks = () => {
                             defaultValue="urgent"
                             onChange={handleSelectSwitch}
                         >
-                            <option disabled>Task importance filter</option>
                             <option value="urgent" className="text-danger">
                                 Urgent
                             </option>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import validateTaskFields from "../utils/validators/taskCreationValidator";
 import { useHistory } from "react-router-dom";
 import { useTasks } from "../hooks/useTasks";
-import { nanoid } from "nanoid";
 import { useSelector } from "react-redux";
 import { getCurrentUserId } from "../store/user";
 
@@ -10,7 +9,6 @@ const AddTaskPage = () => {
     const history = useHistory();
     const currentUserId = useSelector(getCurrentUserId());
     const [data, setData] = useState({
-        _id: nanoid(),
         pageId: currentUserId,
         heading: "",
         status: "",

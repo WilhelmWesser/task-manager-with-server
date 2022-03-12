@@ -2,14 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useTasks } from "../../hooks/useTasks";
-// TODO
-//
-// get task content on pageload
-//
-//
-//
-//
-//
+
 const Task = ({ _id, color, onDelete }) => {
     const history = useHistory();
     const { getTaskById } = useTasks();

@@ -16,21 +16,21 @@ const taskService = {
         return data;
     },
     create: async (content) => {
-        const { data } = await httpService.put(
-            taskEndpoint + content._id,
+        const { data } = await httpService.post(
+            taskEndpoint + "create/" + content._id,
             content
+        );
+        return data;
+    },
+    update: async (updateData) => {
+        const { data } = await httpService.put(
+            taskEndpoint + "edit/" + updateData._id,
+            updateData
         );
         return data;
     },
     delete: async (id) => {
         const { data } = await httpService.delete(taskEndpoint + id);
-        return data;
-    },
-    update: async (updateData) => {
-        const { data } = await httpService.put(
-            taskEndpoint + updateData._id,
-            updateData
-        );
         return data;
     }
 };

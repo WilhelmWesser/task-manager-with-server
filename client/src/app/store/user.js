@@ -76,7 +76,6 @@ const {
     userRequestFailed,
     authRequestSuccess,
     authRequestFailed,
-    userCreated,
     userLoggedOut,
     userUpdateRequested,
     userUpdateSucceded,
@@ -84,8 +83,6 @@ const {
 } = actions;
 
 const authRequested = createAction("user/authRequested");
-const userCreationRequested = createAction("user/userCreationRequested");
-const userCreationFailed = createAction("user/userCreationFailed");
 
 export const signIn =
     ({ payload, redirect }) =>
@@ -94,7 +91,7 @@ export const signIn =
         dispatch(authRequested());
         try {
             const data = await authService.logIn({ email, password });
-            dispatch(authRequestSuccess({ userId: data.localId }));
+            dispatch(authRequestSuccess({ userId: data.userId }));
             localStorageService.setTokens(data);
             history.push(redirect);
         } catch (error) {
@@ -108,15 +105,14 @@ export const signIn =
         }
     };
 
-export const signUp =
-    ({ email, password, ...rest }) =>
+export const signUp = (payload) =>
     async (dispatch) => {
         dispatch(authRequested());
         try {
-            const data = await authService.register({ email, password });
+            const data = await authService.register(payload);
             localStorageService.setTokens(data);
-            dispatch(authRequestSuccess({ userId: data.localId }));
-            dispatch(createUser({ _id: data.localId, email, ...rest }));
+            dispatch(authRequestSuccess({ userId: data.userId }));
+            history.push("/myTasks");
         } catch (error) {
             const { code, message } = error.response.data.error;
             if (code === 400) {
@@ -133,19 +129,6 @@ export const logOut = () => (dispatch) => {
     dispatch(userLoggedOut());
     history.push("/");
 };
-
-function createUser(payload) {
-    return async function (dispatch) {
-        dispatch(userCreationRequested());
-        try {
-            const { content } = await userService.create(payload);
-            dispatch(userCreated(content));
-            history.push("/myTasks");
-        } catch (error) {
-            dispatch(userCreationFailed(error.message));
-        }
-    };
-}
 
 export function updateUser(updateData) {
     return async function (dispatch) {
