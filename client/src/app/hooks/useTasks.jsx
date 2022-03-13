@@ -53,9 +53,9 @@ export const TasksProvider = ({ children }) => {
     const addTask = async (data) => {
         try {
             const { content } = await taskService.create(data);
-            if (content) {
-                setTasks((prevState) => [...prevState, data]);
-            }
+            const newTasks = tasks;
+            newTasks.push(content);
+            setTasks(newTasks);
             return content;
         } catch (error) {
             const { message } = error.response.data;

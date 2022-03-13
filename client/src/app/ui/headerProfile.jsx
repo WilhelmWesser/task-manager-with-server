@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCurrentUserData } from "../store/user";
+
 const HeaderProfile = () => {
     const currentUser = useSelector(getCurrentUserData());
     const [isOpen, setOpen] = useState(false);
     const toggleMenu = () => {
         setOpen((prevState) => !prevState);
     };
-    if (!currentUser) return <h4 className="text-light">Loading...</h4>;
+    if (!currentUser) {
+        return <div className="d-flex flex-column justify-content-center">
+            <div className="d-flex justify-content-center">
+                <div className="lds-dual-ring bg-success rounded"></div>
+            </div>
+        </div>;
+    }
     return (
         <div className="dropdown bg-warning rounded" onClick={toggleMenu}>
             <div className="btn dropdown-toggle d-flex align-items-center">

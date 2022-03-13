@@ -107,6 +107,7 @@ const MyTasks = () => {
                                 </div>
                             </div>
                             <TasksList
+                                key={cardTypes.findIndex((el) => el === type)}
                                 userTasks={tasks}
                                 type={type.type}
                                 onDelete={handleTaskDeletion}
@@ -125,7 +126,11 @@ const MyTasks = () => {
             </div>
         );
     } else {
-        return <h1>Loading....</h1>;
+        return <div className="d-flex flex-column justify-content-center">
+            <div className="d-flex justify-content-center">
+                <div className="lds-dual-ring bg-success rounded"></div>
+            </div>
+        </div>;
     }
 };
 

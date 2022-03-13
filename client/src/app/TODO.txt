@@ -1,1 +1,0 @@
-1. Add interesting loaders instead of Loading title.

@@ -14,7 +14,6 @@ const Task = ({ _id, color, onDelete }) => {
 
     return (
         <div
-            key={_id}
             className={`card border-${color} mb-3 shadow-sm`}
             style={{ maxWidth: "18rem" }}
         >

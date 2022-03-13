@@ -8,6 +8,7 @@ import { getCurrentUserId } from "../store/user";
 const AddTaskPage = () => {
     const history = useHistory();
     const currentUserId = useSelector(getCurrentUserId());
+    const [fillError, setFillError] = useState("");
     const [data, setData] = useState({
         pageId: currentUserId,
         heading: "",
@@ -20,7 +21,7 @@ const AddTaskPage = () => {
 
     const handleChange = (event) => {
         let preWorkedValue = event.target.value;
-
+        setFillError("");
         switch (preWorkedValue) {
             case "urgent":
                 preWorkedValue = {
@@ -56,6 +57,8 @@ const AddTaskPage = () => {
         if (validateTaskFields(data)) {
             addTask(data);
             history.push("/myTasks");
+        } else {
+            setFillError("Please, fill all the task fields");
         }
     };
 
@@ -65,6 +68,9 @@ const AddTaskPage = () => {
                 <form>
                     <div className="d-flex flex-column justify-content-center">
                         <div className="d-flex flex-column justify-content-center">
+                            <div>
+                                <h6 className="bg-dark text-center text-warning">{fillError}</h6>
+                            </div>
                             <div className="input-group mb-2 border-dark">
                                 <input
                                     name="heading"

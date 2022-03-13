@@ -8,6 +8,7 @@ const EditTaskPage = () => {
     const { taskId } = useParams();
     const history = useHistory();
     const [data, setData] = useState();
+    const [fillError, setFillError] = useState();
     const { getTaskById, tasks, updateTask } = useTasks();
 
     async function getTaskToEdit(taskId) {
@@ -30,7 +31,7 @@ const EditTaskPage = () => {
 
     const handleChange = (event) => {
         let preWorkedValue = event.target.value;
-
+        setFillError("");
         switch (preWorkedValue) {
             case "urgent":
                 preWorkedValue = {
@@ -65,6 +66,8 @@ const EditTaskPage = () => {
         if (validateTaskFields(data)) {
             updateTask(data);
             history.replace("/myTasks");
+        } else {
+            setFillError("Please, fill all the task fields");
         }
     };
 
@@ -95,6 +98,9 @@ const EditTaskPage = () => {
                     </button>
                 </div>
                 <form className="d-flex flex-column justify-content-left m-5 w-75">
+                    <div>
+                        <h6 className="bg-dark text-center text-warning">{fillError}</h6>
+                    </div>
                     <div className="d-flex flex-column align-items-center bg-dark text-warning rounded w-25">
                         <h6 className="text-warning text-center mt-2">
                             Heading
@@ -183,7 +189,11 @@ const EditTaskPage = () => {
             </div>
         );
     } else {
-        return <h1>Loading.....</h1>;
+        return <div className="d-flex flex-column justify-content-center">
+            <div className="d-flex justify-content-center">
+                <div className="lds-dual-ring bg-success rounded"></div>
+            </div>
+        </div>;
     }
 };
 

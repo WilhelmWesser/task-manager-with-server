@@ -12,7 +12,13 @@ const AuthLoader = ({ children }) => {
             dispatch(loadUser());
         }
     }, [isLoggedIn]);
-    if (userStatusLoading) return <h1>Loading....</h1>;
+    if (userStatusLoading) {
+        return (<div className="d-flex flex-column justify-content-center">
+            <div className="d-flex justify-content-center">
+                <div className="lds-dual-ring bg-success rounded"></div>
+            </div>
+        </div>);
+    }
     return children;
 };
 
